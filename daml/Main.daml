@@ -1,0 +1,17 @@
+module Main where
+
+import Daml.Script
+
+data Optional a
+ = None
+ | Some a
+   deriving (Eq, Show)
+
+safeDiv : Int -> Int -> Optional Int
+safeDiv _ 0 = None
+safeDiv x y = Some  (x / y)
+
+setup: Script ()
+setup = script do
+   debug $ safeDiv 5 0
+   debug $ safeDiv 5 2
